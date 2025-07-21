@@ -57,3 +57,8 @@ async function runAllTransfers(hashes) {
   }
 }
 
+// Example function
+function symbolicTransfer(data) {
+  return JSON.stringify({ status: "success", hash: generateSymbolicHash(data) });
+}
+
