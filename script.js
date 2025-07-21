@@ -35,3 +35,25 @@ async function symbolicPing(endpoint) {
   }
 }
 
+async function runTransfer(hash) {
+  try {
+    const result = await symbolicTransfer(hash);
+
+    if (result && result.txId) {
+      console.log("✅ Transfer succeeded:", result.txId);
+      appendToLog(result.txId); // Your custom function to show or store the txId
+    } else {
+      console.warn("⚠️ No transaction ID returned for hash:", hash);
+    }
+  } catch (err) {
+    console.error("❌ Transfer error for hash:", hash, err);
+  }
+}
+
+async function runAllTransfers(hashes) {
+  for (let i = 0; i < hashes.length; i++) {
+    await runTransfer(hashes[i]);
+    await new Promise(resolve => setTimeout(resolve, 150)); // Prevents overlapping logs
+  }
+}
+
