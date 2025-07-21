@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symbolic Transfer Runner</title>
+  <script defer src="script.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    #transferStatus { margin-top: 20px; }
+    .logItem { padding: 8px; border-bottom: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h2>Execute Transfers</h2>
+  <button id="runTransfers">Run All Transfers</button>
+
+  <div id="transferStatus">
+    <h3>Transfer Logs</h3>
+    <div id="logOutput"></div>
+  </div>
+
+  <script>
+    document.getElementById('runTransfers').addEventListener('click', async () => {
+      if (typeof runTransfers === 'function') {
+        const results = await runTransfers();
+        const logContainer = document.getElementById('logOutput');
+        logContainer.innerHTML = '';
+        results.forEach((res, i) => {
+          const item = document.createElement('div');
+          item.className = 'logItem';
+          item.textContent = `Transfer ${i + 1}: ${res.streamId || 'No ID Returned'}`;
+          logContainer.appendChild(item);
+        });
+      } else {
+        alert('Transfer function not found in script.js');
+      }
+    });
+  </script>
+</body>
+</html>
+
