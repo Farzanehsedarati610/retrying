@@ -20,6 +20,13 @@
   </div>
 
   <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const element = document.getElementById('someElement');
+  if (element) {
+    element.addEventListener('click', handler);
+  }
+});
+
     document.getElementById('runTransfers').addEventListener('click', async () => {
       if (typeof runTransfers === 'function') {
         const results = await runTransfers();
